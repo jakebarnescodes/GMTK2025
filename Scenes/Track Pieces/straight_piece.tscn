@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://dn8xs4wp5jdw3"]
+
+[ext_resource type="Script" uid="uid://mxtb77q7ufet" path="res://Scripts/straight_piece.gd" id="1_jm6t0"]
+[ext_resource type="Texture2D" uid="uid://dk730grlg3xcs" path="res://icon.svg" id="2_vfx0y"]
+
+[sub_resource type="Curve2D" id="Curve2D_rdbpf"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 160, 0)
+}
+point_count = 2
+
+[node name="StraightPiece" type="Path2D"]
+curve = SubResource("Curve2D_rdbpf")
+script = ExtResource("1_jm6t0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(80, 4)
+scale = Vector2(1.25, 0.0625)
+texture = ExtResource("2_vfx0y")

@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://b267r3osky7sg"]
+
+[ext_resource type="Script" uid="uid://d0swoop3txih" path="res://Scripts/boost_piece.gd" id="1_ep0qu"]
+[ext_resource type="Texture2D" uid="uid://dk730grlg3xcs" path="res://icon.svg" id="2_uj8oo"]
+
+[sub_resource type="Curve2D" id="Curve2D_rdbpf"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 80, 0, 0, 0, 0, 0, 200, -40, 0, 0, 0, 0, 240, -120, 0, 0, 0, 0, 200, -200, 0, 0, 0, 0, 120, -240, 0, 0, 0, 0, 40, -200, 0, 0, 0, 0, 0, -120, 0, 0, 0, 0, 40, -40, 0, 0, 0, 0, 160, 0, 0, 0, 0, 0, 240, 0)
+}
+point_count = 11
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ep0qu"]
+size = Vector2(20, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uj8oo"]
+size = Vector2(240, 240)
+
+[node name="BoostPiece" type="Path2D"]
+curve = SubResource("Curve2D_rdbpf")
+script = ExtResource("1_ep0qu")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 0, 1, 1)
+position = Vector2(120, 4)
+scale = Vector2(1.875, 0.0625)
+texture = ExtResource("2_uj8oo")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(120, -15)
+shape = SubResource("RectangleShape2D_ep0qu")
+
+[node name="Area2D2" type="Area2D" parent="."]
+collision_layer = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
+position = Vector2(120, -120)
+shape = SubResource("RectangleShape2D_uj8oo")

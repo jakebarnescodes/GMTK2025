@@ -1,0 +1,57 @@
+[gd_scene load_steps=9 format=3 uid="uid://b486261c4njkr"]
+
+[ext_resource type="Texture2D" uid="uid://dk730grlg3xcs" path="res://icon.svg" id="1_3dogw"]
+[ext_resource type="Script" uid="uid://ee8bcwm23g8s" path="res://Scripts/coaster.gd" id="1_50ct6"]
+[ext_resource type="Script" uid="uid://8ff1myn8dhcv" path="res://Scripts/track_piece.gd" id="1_r5l72"]
+[ext_resource type="Script" uid="uid://bck3iv8sn2hn6" path="res://Scripts/chain_piece.gd" id="4_hb2xm"]
+[ext_resource type="Script" uid="uid://cdnxw8ss650ti" path="res://Scripts/train.gd" id="5_ak5v8"]
+
+[sub_resource type="Curve2D" id="Curve2D_ak5v8"]
+
+[sub_resource type="Curve2D" id="Curve2D_x033f"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 620, -620)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_rdbpf"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 160, 0)
+}
+point_count = 2
+
+[node name="TestScene" type="Node2D"]
+
+[node name="Coaster" type="Path2D" parent="."]
+curve = SubResource("Curve2D_ak5v8")
+script = ExtResource("1_50ct6")
+
+[node name="Train" type="PathFollow2D" parent="Coaster"]
+loop = false
+script = ExtResource("5_ak5v8")
+
+[node name="Sprite2D" type="Sprite2D" parent="Coaster/Train"]
+position = Vector2(0, -20)
+scale = Vector2(0.625, 0.3125)
+texture = ExtResource("1_3dogw")
+
+[node name="ChainPiece" type="Path2D" parent="Coaster"]
+position = Vector2(0, 700)
+curve = SubResource("Curve2D_x033f")
+script = ExtResource("4_hb2xm")
+
+[node name="Sprite2D" type="Sprite2D" parent="Coaster/ChainPiece"]
+position = Vector2(313.987, -303.987)
+rotation = -0.785398
+scale = Vector2(6.86238, 0.0625)
+texture = ExtResource("1_3dogw")
+
+[node name="TrackPiece" type="Path2D" parent="Coaster"]
+position = Vector2(620, 80)
+curve = SubResource("Curve2D_rdbpf")
+script = ExtResource("1_r5l72")
+
+[node name="Sprite2D" type="Sprite2D" parent="Coaster/TrackPiece"]
+position = Vector2(80, 4)
+scale = Vector2(1.25, 0.0625)
+texture = ExtResource("1_3dogw")
