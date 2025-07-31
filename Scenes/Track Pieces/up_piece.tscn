@@ -1,21 +1,28 @@
 [gd_scene load_steps=4 format=3 uid="uid://rb1awli08rot"]
 
-[ext_resource type="Script" uid="uid://mxtb77q7ufet" path="res://Scripts/straight_piece.gd" id="1_qfjhu"]
-[ext_resource type="Texture2D" uid="uid://dk730grlg3xcs" path="res://icon.svg" id="2_u70do"]
+[ext_resource type="Script" uid="uid://8ff1myn8dhcv" path="res://Scripts/track_piece.gd" id="1_qfjhu"]
+[ext_resource type="Texture2D" uid="uid://chgemy4amucqi" path="res://Sprites/Track Pieces/curve.png" id="2_qfjhu"]
 
 [sub_resource type="Curve2D" id="Curve2D_rdbpf"]
 _data = {
-"points": PackedVector2Array(-114.93, 0.424098, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 60, -30, 0, 0, 0, 0, 119, -79, 0, 0, 0, 0, 120, -80)
+"points": PackedVector2Array(-114.93, 0.424098, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 50, -10, 0, 0, 0, 0, 70, -30, 0, 0, 0, 0, 90, -50, 0, 0, 0, 0, 100, -99, 0, 0, 0, 0, 100, -100)
 }
-point_count = 5
+point_count = 7
 
 [node name="UpPiece" type="Path2D"]
 curve = SubResource("Curve2D_rdbpf")
 script = ExtResource("1_qfjhu")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(80, 50)
-rotation = 0.523599
-scale = Vector2(1.25, 0.0625)
-texture = ExtResource("2_u70do")
+position = Vector2(60, -40)
+scale = Vector2(2, 2)
+texture = ExtResource("2_qfjhu")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 8
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+position = Vector2(80, -60)
+rotation = 1.5708
+build_mode = 1
+polygon = PackedVector2Array(-40, -30, -30, -30, 10, -20, 20, -10, 30, 0, 40, 10, 50, 20, 60, 30, 60, 40, 70, 60, 70, 70, 70, 80, 80, 80, 80, 70, 80, 60, 70, 50, 70, 40, 60, 20, 50, 10, 40, 0, 30, -10, 10, -30, -40, -40)

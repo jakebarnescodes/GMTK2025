@@ -6,3 +6,5 @@ extends Node
 @warning_ignore("unused_signal") signal position_camera
 
 @warning_ignore("unused_signal") signal pickup_loop
+
+@warning_ignore("unused_signal") signal lose

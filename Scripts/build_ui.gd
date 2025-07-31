@@ -4,7 +4,7 @@ var loops : int = 0
 
 func _ready() -> void:
 	SignalBus.pickup_loop.connect(add_loop)
-	add_loop()
+	#add_loop()
 
 func add_loop():
 	loops += 1

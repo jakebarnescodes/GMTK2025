@@ -9,6 +9,7 @@ func build(piece_path : String):
 	var piece_node = piece_scene.instantiate()
 	add_child(piece_node)
 	append_piece(piece_node)
+	$Sprite2D.modulate.r -= 0.05
 
 func append_piece(piece_path : TrackPiece):
 	var piece_curve : Curve2D = piece_path.curve

@@ -34,3 +34,9 @@ window/stretch/mode="viewport"
 2d_physics/layer_3="Boost"
 2d_physics/layer_4="Piece"
 2d_physics/layer_5="Loop"
+2d_physics/layer_6="Pickup"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
+environment/defaults/default_clear_color=Color(0, 0.392157, 0.588235, 1)
