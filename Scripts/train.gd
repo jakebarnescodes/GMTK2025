@@ -15,9 +15,11 @@ func lose():
 func _process(delta: float) -> void:
 	progress += speed * delta
 	furthest_x = max(global_position.x,furthest_x)
-	if progress_ratio >= 1 or global_position.y < 0 or global_position.y > 720 or global_position.x < 0:
+	if progress_ratio >= 1 or global_position.y < 0 or global_position.y > 720 or global_position.x < -100:
 		SignalBus.lose.emit()
 	SignalBus.position_camera.emit(global_position)
+	SignalBus.position_cars.emit(progress)
+	$RoarPlayer.volume_linear = inverse_lerp(0,500,speed)
 
 func _physics_process(_delta: float) -> void:
 	# Special Track Collisions
@@ -25,9 +27,6 @@ func _physics_process(_delta: float) -> void:
 	for area in overlapping:
 		if area.collision_layer == 2:
 			speed = max(speed, 100.0)
-		if area.collision_layer == 8:
-			pass
-			#SignalBus.lose.emit()
 
 	# Speed
 	speed /= drag
@@ -42,3 +41,8 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 	if area.collision_layer == 4 and speed > 0:
 		speed = max(speed+boost_amount, 200)
 		print("BOOST! (speed = " + str(speed) + ")")
+		$BoostPlayer.play()
+	if area.collision_layer == 64:
+		SignalBus.lose.emit()
+	if area.collision_layer == 128:
+		SignalBus.win.emit()

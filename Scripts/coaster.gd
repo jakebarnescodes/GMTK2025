@@ -3,6 +3,12 @@ extends Path2D
 
 func _ready() -> void:
 	SignalBus.build_piece.connect(build)
+	reset_curve(6)
+
+func reset_curve(keep_count: int):
+	var total = curve.get_point_count()
+	for i in range(total - 1, keep_count - 1, -1):
+		curve.remove_point(i)
 
 func build(piece_path : String):
 	var piece_scene = load(piece_path)

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="GMTK 2025"
-run/main_scene="uid://b486261c4njkr"
+run/main_scene="uid://c7ncy1khe82wt"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -35,6 +35,8 @@ window/stretch/mode="viewport"
 2d_physics/layer_4="Piece"
 2d_physics/layer_5="Loop"
 2d_physics/layer_6="Pickup"
+2d_physics/layer_7="Obstacle"
+2d_physics/layer_8="Finish"
 
 [rendering]
 

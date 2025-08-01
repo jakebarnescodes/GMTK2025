@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://g6hbfmtqwqod"]
+
+[ext_resource type="Script" uid="uid://d3ec6r7u8c7mx" path="res://Scripts/bird.gd" id="1_mcegt"]
+[ext_resource type="Texture2D" uid="uid://dvkd8n4y1rsmu" path="res://Sprites/bird_animated.png" id="2_mcegt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dnvpi"]
+atlas = ExtResource("2_mcegt")
+region = Rect2(0, 0, 30, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vl8r2"]
+atlas = ExtResource("2_mcegt")
+region = Rect2(30, 0, 30, 30)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rr33m"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dnvpi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vl8r2")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mcegt"]
+size = Vector2(60, 30)
+
+[node name="Bird" type="Node2D"]
+script = ExtResource("1_mcegt")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_rr33m")
+frame_progress = 0.719407
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, -10)
+collision_layer = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_mcegt")

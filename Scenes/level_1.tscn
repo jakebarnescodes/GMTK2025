@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b486261c4njkr"]
+[gd_scene load_steps=27 format=3 uid="uid://b486261c4njkr"]
 
 [ext_resource type="Texture2D" uid="uid://bgritatthwyl3" path="res://Sprites/blueprint_grid.png" id="1_6r07y"]
 [ext_resource type="Script" uid="uid://bkb871i4ro4q2" path="res://Scripts/follow_camera_2d.gd" id="1_uy8f0"]
@@ -7,16 +7,23 @@
 [ext_resource type="Script" uid="uid://cdnxw8ss650ti" path="res://Scripts/train.gd" id="4_oovug"]
 [ext_resource type="Texture2D" uid="uid://b1ncsqc8pgfp" path="res://Sprites/train.png" id="5_8i23i"]
 [ext_resource type="Script" uid="uid://dda8wjdq1gqsl" path="res://Scripts/build_ui.gd" id="6_8yhm2"]
+[ext_resource type="Texture2D" uid="uid://dhcwa1sdlmrwn" path="res://Sprites/train_middle.png" id="7_8i23i"]
+[ext_resource type="Script" uid="uid://de6l0ij8e8cnn" path="res://Scripts/train_car.gd" id="7_8yhm2"]
+[ext_resource type="Texture2D" uid="uid://b0uvmd77fqufm" path="res://Sprites/finishline.png" id="7_oovug"]
 [ext_resource type="Texture2D" uid="uid://c8is7y1fams0i" path="res://Sprites/Track Pieces/straight.png" id="7_pjppf"]
+[ext_resource type="AudioStream" uid="uid://dtxfb3p371u7l" path="res://SFX/roller-coaster-roar.wav" id="7_yltlr"]
+[ext_resource type="AudioStream" uid="uid://cpq2v0himnr83" path="res://SFX/boost.wav" id="8_6ssoq"]
 [ext_resource type="Texture2D" uid="uid://do1mta457tta7" path="res://Sprites/Track Pieces/down.png" id="8_yltlr"]
 [ext_resource type="Texture2D" uid="uid://chgemy4amucqi" path="res://Sprites/Track Pieces/curve.png" id="9_6ssoq"]
+[ext_resource type="Texture2D" uid="uid://d3y4dh5xtj6pf" path="res://Sprites/train_middle_2.png" id="9_pjppf"]
 [ext_resource type="Texture2D" uid="uid://bsm6xnushi66k" path="res://Sprites/Track Pieces/loop.png" id="10_imks0"]
 [ext_resource type="PackedScene" uid="uid://cpdypd2c8mlvr" path="res://Scenes/pickup.tscn" id="11_dlmop"]
-[ext_resource type="PackedScene" uid="uid://bulywjqmc4dca" path="res://Scenes/bugs.tscn" id="12_sda17"]
+[ext_resource type="PackedScene" uid="uid://bulywjqmc4dca" path="res://Scenes/Obstacle/bugs.tscn" id="12_sda17"]
+[ext_resource type="PackedScene" uid="uid://g6hbfmtqwqod" path="res://Scenes/Obstacle/bird.tscn" id="14_6ioyp"]
 
 [sub_resource type="Curve2D" id="Curve2D_ak5v8"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, 700, 0, 0, 0, 0, 90, 700, 0, 0, 0, 0, 110, 690, 0, 0, 0, 0, 680, 120, 0, 0, 0, 0, 700, 110, 0, 0, 0, 0, 800, 110)
+"points": PackedVector2Array(0, 0, 0, 0, -20, 700, 0, 0, 0, 0, 90, 700, 0, 0, 0, 0, 110, 690, 0, 0, 0, 0, 680, 120, 0, 0, 0, 0, 700, 110, 0, 0, 0, 0, 800, 110)
 }
 point_count = 6
 
@@ -28,6 +35,12 @@ size = Vector2(17.071, 840.93)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ak5v8"]
 radius = 20.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8i23i"]
+size = Vector2(30, 360)
+
+[sub_resource type="LabelSettings" id="LabelSettings_oovug"]
+font_size = 24
 
 [node name="LevelOne" type="Node2D"]
 
@@ -77,7 +90,6 @@ collision_layer = 8
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Coaster/Hurtboxes/Area2D3"]
 position = Vector2(-341.036, 298.964)
 rotation = 0.785398
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_hb2xm")
 
 [node name="Chain" type="Area2D" parent="Coaster"]
@@ -86,12 +98,11 @@ collision_layer = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Coaster/Chain"]
 position = Vector2(380.615, 405.243)
 rotation = 0.785398
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_hb2xm")
 
 [node name="Train" type="PathFollow2D" parent="Coaster"]
 z_index = 100
-position = Vector2(0, 700)
+position = Vector2(-20, 700)
 loop = false
 script = ExtResource("4_oovug")
 
@@ -102,10 +113,109 @@ texture = ExtResource("5_8i23i")
 
 [node name="Area2D" type="Area2D" parent="Coaster/Train"]
 position = Vector2(0, -20)
-collision_mask = 30
+collision_mask = 254
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Coaster/Train/Area2D"]
 shape = SubResource("CircleShape2D_ak5v8")
+
+[node name="RoarPlayer" type="AudioStreamPlayer" parent="Coaster/Train"]
+stream = ExtResource("7_yltlr")
+autoplay = true
+
+[node name="BoostPlayer" type="AudioStreamPlayer" parent="Coaster/Train"]
+stream = ExtResource("8_6ssoq")
+volume_db = -10.0
+
+[node name="TrainCar1" type="PathFollow2D" parent="Coaster"]
+z_index = 100
+position = Vector2(-20, 700)
+script = ExtResource("7_8yhm2")
+car_number = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="Coaster/TrainCar1"]
+position = Vector2(0, -20)
+scale = Vector2(2, 2)
+texture = ExtResource("7_8i23i")
+
+[node name="TrainCar2" type="PathFollow2D" parent="Coaster"]
+z_index = 100
+position = Vector2(-20, 700)
+script = ExtResource("7_8yhm2")
+car_number = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Coaster/TrainCar2"]
+position = Vector2(0, -20)
+scale = Vector2(2, 2)
+texture = ExtResource("9_pjppf")
+
+[node name="TrainCar3" type="PathFollow2D" parent="Coaster"]
+z_index = 100
+position = Vector2(-20, 700)
+script = ExtResource("7_8yhm2")
+car_number = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="Coaster/TrainCar3"]
+position = Vector2(0, -20)
+scale = Vector2(2, 2)
+texture = ExtResource("7_8i23i")
+
+[node name="TrainCar4" type="PathFollow2D" parent="Coaster"]
+z_index = 100
+position = Vector2(-20, 700)
+script = ExtResource("7_8yhm2")
+car_number = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="Coaster/TrainCar4"]
+position = Vector2(0, -20)
+scale = Vector2(2, 2)
+texture = ExtResource("9_pjppf")
+
+[node name="TrainCar5" type="PathFollow2D" parent="Coaster"]
+z_index = 100
+position = Vector2(-20, 700)
+script = ExtResource("7_8yhm2")
+car_number = 5
+
+[node name="Sprite2D" type="Sprite2D" parent="Coaster/TrainCar5"]
+position = Vector2(0, -20)
+scale = Vector2(2, 2)
+texture = ExtResource("7_8i23i")
+
+[node name="TrainCar6" type="PathFollow2D" parent="Coaster"]
+z_index = 100
+position = Vector2(-20, 700)
+script = ExtResource("7_8yhm2")
+car_number = 6
+
+[node name="Sprite2D" type="Sprite2D" parent="Coaster/TrainCar6"]
+position = Vector2(0, -20)
+scale = Vector2(2, 2)
+texture = ExtResource("9_pjppf")
+
+[node name="TrainCar7" type="PathFollow2D" parent="Coaster"]
+z_index = 100
+position = Vector2(-20, 700)
+script = ExtResource("7_8yhm2")
+car_number = 7
+
+[node name="Sprite2D" type="Sprite2D" parent="Coaster/TrainCar7"]
+position = Vector2(0, -20)
+scale = Vector2(2, 2)
+texture = ExtResource("7_8i23i")
+
+[node name="FinishLine" type="Node2D" parent="."]
+position = Vector2(4850, 360)
+
+[node name="Sprite2D" type="Sprite2D" parent="FinishLine"]
+scale = Vector2(2, 2)
+texture = ExtResource("7_oovug")
+
+[node name="Area2D" type="Area2D" parent="FinishLine"]
+scale = Vector2(2, 2)
+collision_layer = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FinishLine/Area2D"]
+shape = SubResource("RectangleShape2D_8i23i")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -174,23 +284,28 @@ offset_bottom = 748.0
 scale = Vector2(0.67, 0.67)
 theme_override_font_sizes/font_size = 24
 disabled = true
-text = "LOOP
-BOOST!!!"
+text = "BOOSTY
+LOOP"
 icon = ExtResource("10_imks0")
 icon_alignment = 1
 expand_icon = true
 
+[node name="BoostLabel" type="Label" parent="CanvasLayer/BuildUI"]
+layout_mode = 0
+offset_left = 1190.0
+offset_top = 570.0
+offset_right = 1230.0
+offset_bottom = 604.0
+text = "0"
+label_settings = SubResource("LabelSettings_oovug")
+horizontal_alignment = 1
+vertical_alignment = 2
+
 [node name="Pickup" parent="." instance=ExtResource("11_dlmop")]
 position = Vector2(1050, 650)
 
-[node name="Pickup2" parent="." instance=ExtResource("11_dlmop")]
-position = Vector2(3050, 150)
-
 [node name="Pickup3" parent="." instance=ExtResource("11_dlmop")]
 position = Vector2(3050, 250)
-
-[node name="Pickup4" parent="." instance=ExtResource("11_dlmop")]
-position = Vector2(3050, 450)
 
 [node name="Pickup5" parent="." instance=ExtResource("11_dlmop")]
 position = Vector2(3050, 550)
@@ -234,9 +349,6 @@ position = Vector2(4050, 350)
 [node name="Bugs17" parent="." instance=ExtResource("12_sda17")]
 position = Vector2(4050, 250)
 
-[node name="Bugs18" parent="." instance=ExtResource("12_sda17")]
-position = Vector2(4050, 150)
-
 [node name="Bugs12" parent="." instance=ExtResource("12_sda17")]
 position = Vector2(3050, 350)
 
@@ -246,8 +358,8 @@ position = Vector2(1550, 50)
 [node name="Bugs6" parent="." instance=ExtResource("12_sda17")]
 position = Vector2(2750, 150)
 
-[node name="Bugs7" parent="." instance=ExtResource("12_sda17")]
-position = Vector2(3050, 50)
+[node name="Bird" parent="." instance=ExtResource("14_6ioyp")]
+position = Vector2(3050, 70)
 
 [connection signal="area_entered" from="Coaster/Train/Area2D" to="Coaster/Train" method="_on_area_2d_area_entered"]
 [connection signal="pressed" from="CanvasLayer/BuildUI/StraightButton" to="CanvasLayer/BuildUI" method="_on_straight_button_pressed"]

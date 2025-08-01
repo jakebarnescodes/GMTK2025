@@ -4,16 +4,21 @@ var loops : int = 0
 
 func _ready() -> void:
 	SignalBus.pickup_loop.connect(add_loop)
+	$BoostLabel.visible = false
 	#add_loop()
 
 func add_loop():
 	loops += 1
 	$BoostButton.disabled = false
+	$BoostLabel.text = str(loops)
+	$BoostLabel.visible = true
 
 func remove_loop():
 	loops -= 1
 	if loops <= 0:
 		$BoostButton.disabled = true
+		$BoostLabel.visible = false
+	$BoostLabel.text = str(loops)
 
 ## BUILD
 

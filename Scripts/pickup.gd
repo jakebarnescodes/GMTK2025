@@ -14,4 +14,5 @@ func _process(delta: float) -> void:
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	if area.collision_layer == 1:
 		SignalBus.pickup_loop.emit()
+		SignalBus.play_sfx.emit("res://SFX/pickup.wav")
 		self.queue_free()

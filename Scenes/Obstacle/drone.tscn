@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3 uid="uid://bdhrmfflcjdcf"]
+
+[ext_resource type="Script" uid="uid://cftwnw13wsymr" path="res://Scripts/drone.gd" id="1_o36xs"]
+[ext_resource type="Texture2D" uid="uid://b5hh543kn4yvh" path="res://Sprites/drone.png" id="2_o36xs"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i3b1v"]
+atlas = ExtResource("2_o36xs")
+region = Rect2(0, 0, 30, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x74uf"]
+atlas = ExtResource("2_o36xs")
+region = Rect2(30, 0, 30, 30)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y2b23"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i3b1v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x74uf")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o36xs"]
+size = Vector2(60, 20)
+
+[node name="Drone" type="Node2D"]
+script = ExtResource("1_o36xs")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_y2b23")
+frame_progress = 0.258622
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_o36xs")
