@@ -3,22 +3,22 @@
 [ext_resource type="Script" uid="uid://cftwnw13wsymr" path="res://Scripts/drone.gd" id="1_o36xs"]
 [ext_resource type="Texture2D" uid="uid://b5hh543kn4yvh" path="res://Sprites/drone.png" id="2_o36xs"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_i3b1v"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_67er3"]
 atlas = ExtResource("2_o36xs")
-region = Rect2(0, 0, 30, 30)
+region = Rect2(0, 0, 60, 60)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_x74uf"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_lhge2"]
 atlas = ExtResource("2_o36xs")
-region = Rect2(30, 0, 30, 30)
+region = Rect2(60, 0, 60, 60)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_y2b23"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_i3b1v")
+"texture": SubResource("AtlasTexture_67er3")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_x74uf")
+"texture": SubResource("AtlasTexture_lhge2")
 }],
 "loop": true,
 "name": &"default",
@@ -32,9 +32,9 @@ size = Vector2(60, 20)
 script = ExtResource("1_o36xs")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_y2b23")
-frame_progress = 0.258622
+frame = 1
+frame_progress = 0.0784019
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 64

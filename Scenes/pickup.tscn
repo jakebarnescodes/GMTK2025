@@ -10,7 +10,6 @@ radius = 50.0
 script = ExtResource("1_cya6u")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(2, 2)
 texture = ExtResource("2_cya6u")
 
 [node name="Area2D" type="Area2D" parent="."]

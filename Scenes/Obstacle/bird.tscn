@@ -3,22 +3,22 @@
 [ext_resource type="Script" uid="uid://d3ec6r7u8c7mx" path="res://Scripts/bird.gd" id="1_mcegt"]
 [ext_resource type="Texture2D" uid="uid://dvkd8n4y1rsmu" path="res://Sprites/bird_animated.png" id="2_mcegt"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_dnvpi"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_87w8m"]
 atlas = ExtResource("2_mcegt")
-region = Rect2(0, 0, 30, 30)
+region = Rect2(0, 0, 60, 60)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_vl8r2"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_qabe5"]
 atlas = ExtResource("2_mcegt")
-region = Rect2(30, 0, 30, 30)
+region = Rect2(60, 0, 60, 60)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_rr33m"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_dnvpi")
+"texture": SubResource("AtlasTexture_87w8m")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_vl8r2")
+"texture": SubResource("AtlasTexture_qabe5")
 }],
 "loop": true,
 "name": &"default",
@@ -32,7 +32,6 @@ size = Vector2(60, 30)
 script = ExtResource("1_mcegt")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_rr33m")
 frame_progress = 0.719407
 

@@ -5,7 +5,7 @@
 
 [sub_resource type="Curve2D" id="Curve2D_rdbpf"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 50, 10, 0, 0, 0, 0, 70, 30, 0, 0, 0, 0, 90, 50, 0, 0, 0, 0, 100, 99, 0, 0, 0, 0, 100, 100)
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, -6.49175, 0.0825599, 6.49175, -0.0825599, 1, 0, -7.92915, -4.35545, 7.92915, 4.35545, 49, 11, -5.58391, -4.80216, 5.58391, 4.80216, 71, 28, -3.35034, -6.70069, 3.35034, 6.70069, 89, 53, 0.108181, -7.29298, -0.108181, 7.29298, 100, 99, 0, 0, 0, 0, 100, 100)
 }
 point_count = 7
 
@@ -15,13 +15,4 @@ script = ExtResource("1_wfneb")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(50, 50)
-scale = Vector2(2, 2)
 texture = ExtResource("2_wfneb")
-
-[node name="Area2D" type="Area2D" parent="."]
-collision_layer = 8
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
-position = Vector2(10, 20)
-build_mode = 1
-polygon = PackedVector2Array(-10, 0, 0, 0, 10, 0, 20, 10, 30, 10, 40, 20, 50, 30, 60, 40, 60, 50, 60, 60, 70, 70, 70, 80, 80, 80, 80, 70, 70, 60, 70, 50, 70, 40, 60, 30, 30, 0, 20, 0, 10, -10, 0, -10, -10, -10)

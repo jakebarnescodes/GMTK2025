@@ -19,7 +19,7 @@ func _process(delta: float) -> void:
 		SignalBus.lose.emit()
 	SignalBus.position_camera.emit(global_position)
 	SignalBus.position_cars.emit(progress)
-	$RoarPlayer.volume_linear = inverse_lerp(0,500,speed)
+	$RoarPlayer.volume_linear = clamp(inverse_lerp(0,500,speed),0,500)
 
 func _physics_process(_delta: float) -> void:
 	# Special Track Collisions
@@ -42,7 +42,7 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 		speed = max(speed+boost_amount, 200)
 		print("BOOST! (speed = " + str(speed) + ")")
 		$BoostPlayer.play()
-	if area.collision_layer == 64:
+	if area.collision_layer == 64 or area.collision_layer == 8:
 		SignalBus.lose.emit()
 	if area.collision_layer == 128:
 		SignalBus.win.emit()

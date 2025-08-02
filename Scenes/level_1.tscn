@@ -1,9 +1,11 @@
-[gd_scene load_steps=27 format=3 uid="uid://b486261c4njkr"]
+[gd_scene load_steps=31 format=3 uid="uid://b486261c4njkr"]
 
+[ext_resource type="Script" uid="uid://mm0faps04dlr" path="res://Scripts/death_wall.gd" id="1_1fal7"]
 [ext_resource type="Texture2D" uid="uid://bgritatthwyl3" path="res://Sprites/blueprint_grid.png" id="1_6r07y"]
 [ext_resource type="Script" uid="uid://bkb871i4ro4q2" path="res://Scripts/follow_camera_2d.gd" id="1_uy8f0"]
 [ext_resource type="Script" uid="uid://ee8bcwm23g8s" path="res://Scripts/coaster.gd" id="2_6r07y"]
 [ext_resource type="Texture2D" uid="uid://cbbv1ro4p20gm" path="res://Sprites/Track Pieces/chain.png" id="3_6ioyp"]
+[ext_resource type="AudioStream" uid="uid://bi5le08v1fkas" path="res://SFX/build.wav" id="4_dlmop"]
 [ext_resource type="Script" uid="uid://cdnxw8ss650ti" path="res://Scripts/train.gd" id="4_oovug"]
 [ext_resource type="Texture2D" uid="uid://b1ncsqc8pgfp" path="res://Sprites/train.png" id="5_8i23i"]
 [ext_resource type="Script" uid="uid://dda8wjdq1gqsl" path="res://Scripts/build_ui.gd" id="6_8yhm2"]
@@ -15,26 +17,28 @@
 [ext_resource type="AudioStream" uid="uid://cpq2v0himnr83" path="res://SFX/boost.wav" id="8_6ssoq"]
 [ext_resource type="Texture2D" uid="uid://do1mta457tta7" path="res://Sprites/Track Pieces/down.png" id="8_yltlr"]
 [ext_resource type="Texture2D" uid="uid://chgemy4amucqi" path="res://Sprites/Track Pieces/curve.png" id="9_6ssoq"]
-[ext_resource type="Texture2D" uid="uid://d3y4dh5xtj6pf" path="res://Sprites/train_middle_2.png" id="9_pjppf"]
 [ext_resource type="Texture2D" uid="uid://bsm6xnushi66k" path="res://Sprites/Track Pieces/loop.png" id="10_imks0"]
 [ext_resource type="PackedScene" uid="uid://cpdypd2c8mlvr" path="res://Scenes/pickup.tscn" id="11_dlmop"]
 [ext_resource type="PackedScene" uid="uid://bulywjqmc4dca" path="res://Scenes/Obstacle/bugs.tscn" id="12_sda17"]
+[ext_resource type="FontFile" uid="uid://dycujnx8xg131" path="res://Fonts/COMICZ.TTF" id="13_imks0"]
 [ext_resource type="PackedScene" uid="uid://g6hbfmtqwqod" path="res://Scenes/Obstacle/bird.tscn" id="14_6ioyp"]
+[ext_resource type="FontFile" uid="uid://dwkaxhrup66ap" path="res://Fonts/COMICBD.TTF" id="18_dlmop"]
+[ext_resource type="PackedScene" uid="uid://bdhrmfflcjdcf" path="res://Scenes/Obstacle/drone.tscn" id="23_sda17"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sda17"]
+size = Vector2(1280, 720)
 
 [sub_resource type="Curve2D" id="Curve2D_ak5v8"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, -20, 700, 0, 0, 0, 0, 90, 700, 0, 0, 0, 0, 110, 690, 0, 0, 0, 0, 680, 120, 0, 0, 0, 0, 700, 110, 0, 0, 0, 0, 800, 110)
+"points": PackedVector2Array(0, 0, 0, 0, -20, 700, -14.4832, 0.789994, 14.4832, -0.789994, 90, 700, 0, 0, 0, 0, 110, 687, 0, 0, 0, 0, 685, 123, -9.47992, 3.42331, 9.47992, -3.42331, 700, 110, 0, 0, 0, 0, 800, 110)
 }
 point_count = 6
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_x033f"]
-size = Vector2(110, 10)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hb2xm"]
 size = Vector2(17.071, 840.93)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ak5v8"]
-radius = 20.0
+radius = 19.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8i23i"]
 size = Vector2(30, 360)
@@ -43,6 +47,24 @@ size = Vector2(30, 360)
 font_size = 24
 
 [node name="LevelOne" type="Node2D"]
+
+[node name="DeathWall" type="Node2D" parent="."]
+position = Vector2(-50, 0)
+script = ExtResource("1_1fal7")
+
+[node name="ColorRect" type="ColorRect" parent="DeathWall"]
+z_index = 4096
+z_as_relative = false
+custom_minimum_size = Vector2(1280, 720)
+offset_left = -1280.0
+offset_bottom = 720.0
+
+[node name="Area2D" type="Area2D" parent="DeathWall"]
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DeathWall/Area2D"]
+position = Vector2(-640, 360)
+shape = SubResource("RectangleShape2D_sda17")
 
 [node name="Background" type="Sprite2D" parent="."]
 texture_repeat = 2
@@ -60,37 +82,13 @@ script = ExtResource("1_uy8f0")
 curve = SubResource("Curve2D_ak5v8")
 script = ExtResource("2_6r07y")
 
+[node name="BuildPlayer" type="AudioStreamPlayer" parent="Coaster"]
+stream = ExtResource("4_dlmop")
+volume_db = -10.0
+
 [node name="Sprite2D" type="Sprite2D" parent="Coaster"]
 position = Vector2(400, 360)
-scale = Vector2(2, 2)
 texture = ExtResource("3_6ioyp")
-
-[node name="Hurtboxes" type="Node2D" parent="Coaster"]
-
-[node name="Area2D" type="Area2D" parent="Coaster/Hurtboxes"]
-position = Vector2(50, 710)
-collision_layer = 8
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Coaster/Hurtboxes/Area2D"]
-position = Vector2(5, 5)
-shape = SubResource("RectangleShape2D_x033f")
-
-[node name="Area2D2" type="Area2D" parent="Coaster/Hurtboxes"]
-position = Vector2(740, 120)
-collision_layer = 8
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Coaster/Hurtboxes/Area2D2"]
-position = Vector2(5, 5)
-shape = SubResource("RectangleShape2D_x033f")
-
-[node name="Area2D3" type="Area2D" parent="Coaster/Hurtboxes"]
-position = Vector2(740, 120)
-collision_layer = 8
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Coaster/Hurtboxes/Area2D3"]
-position = Vector2(-341.036, 298.964)
-rotation = 0.785398
-shape = SubResource("RectangleShape2D_hb2xm")
 
 [node name="Chain" type="Area2D" parent="Coaster"]
 collision_layer = 2
@@ -108,7 +106,6 @@ script = ExtResource("4_oovug")
 
 [node name="Sprite2D" type="Sprite2D" parent="Coaster/Train"]
 position = Vector2(0, -21)
-scale = Vector2(2, 2)
 texture = ExtResource("5_8i23i")
 
 [node name="Area2D" type="Area2D" parent="Coaster/Train"]
@@ -134,7 +131,6 @@ car_number = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="Coaster/TrainCar1"]
 position = Vector2(0, -20)
-scale = Vector2(2, 2)
 texture = ExtResource("7_8i23i")
 
 [node name="TrainCar2" type="PathFollow2D" parent="Coaster"]
@@ -145,8 +141,7 @@ car_number = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="Coaster/TrainCar2"]
 position = Vector2(0, -20)
-scale = Vector2(2, 2)
-texture = ExtResource("9_pjppf")
+texture = ExtResource("7_8i23i")
 
 [node name="TrainCar3" type="PathFollow2D" parent="Coaster"]
 z_index = 100
@@ -156,7 +151,6 @@ car_number = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="Coaster/TrainCar3"]
 position = Vector2(0, -20)
-scale = Vector2(2, 2)
 texture = ExtResource("7_8i23i")
 
 [node name="TrainCar4" type="PathFollow2D" parent="Coaster"]
@@ -167,8 +161,7 @@ car_number = 4
 
 [node name="Sprite2D" type="Sprite2D" parent="Coaster/TrainCar4"]
 position = Vector2(0, -20)
-scale = Vector2(2, 2)
-texture = ExtResource("9_pjppf")
+texture = ExtResource("7_8i23i")
 
 [node name="TrainCar5" type="PathFollow2D" parent="Coaster"]
 z_index = 100
@@ -178,7 +171,6 @@ car_number = 5
 
 [node name="Sprite2D" type="Sprite2D" parent="Coaster/TrainCar5"]
 position = Vector2(0, -20)
-scale = Vector2(2, 2)
 texture = ExtResource("7_8i23i")
 
 [node name="TrainCar6" type="PathFollow2D" parent="Coaster"]
@@ -189,8 +181,7 @@ car_number = 6
 
 [node name="Sprite2D" type="Sprite2D" parent="Coaster/TrainCar6"]
 position = Vector2(0, -20)
-scale = Vector2(2, 2)
-texture = ExtResource("9_pjppf")
+texture = ExtResource("7_8i23i")
 
 [node name="TrainCar7" type="PathFollow2D" parent="Coaster"]
 z_index = 100
@@ -200,11 +191,10 @@ car_number = 7
 
 [node name="Sprite2D" type="Sprite2D" parent="Coaster/TrainCar7"]
 position = Vector2(0, -20)
-scale = Vector2(2, 2)
 texture = ExtResource("7_8i23i")
 
 [node name="FinishLine" type="Node2D" parent="."]
-position = Vector2(4850, 360)
+position = Vector2(9650, 360)
 
 [node name="Sprite2D" type="Sprite2D" parent="FinishLine"]
 scale = Vector2(2, 2)
@@ -233,6 +223,7 @@ offset_left = 800.0
 offset_top = 600.0
 offset_right = 900.0
 offset_bottom = 700.0
+theme_override_fonts/font = ExtResource("13_imks0")
 text = "STRAIGHT
 
 
@@ -248,6 +239,7 @@ offset_left = 920.0
 offset_top = 600.0
 offset_right = 1020.0
 offset_bottom = 700.0
+theme_override_fonts/font = ExtResource("13_imks0")
 text = "
 
 
@@ -264,6 +256,7 @@ offset_left = 1040.0
 offset_top = 600.0
 offset_right = 1140.0
 offset_bottom = 700.0
+theme_override_fonts/font = ExtResource("13_imks0")
 text = "UP
 
 
@@ -282,6 +275,7 @@ offset_top = 600.0
 offset_right = 1308.0
 offset_bottom = 748.0
 scale = Vector2(0.67, 0.67)
+theme_override_fonts/font = ExtResource("13_imks0")
 theme_override_font_sizes/font_size = 24
 disabled = true
 text = "BOOSTY
@@ -296,70 +290,197 @@ offset_left = 1190.0
 offset_top = 570.0
 offset_right = 1230.0
 offset_bottom = 604.0
+theme_override_fonts/font = ExtResource("18_dlmop")
 text = "0"
 label_settings = SubResource("LabelSettings_oovug")
 horizontal_alignment = 1
 vertical_alignment = 2
 
 [node name="Pickup" parent="." instance=ExtResource("11_dlmop")]
-position = Vector2(1050, 650)
+position = Vector2(750, 60)
 
 [node name="Pickup3" parent="." instance=ExtResource("11_dlmop")]
-position = Vector2(3050, 250)
+position = Vector2(3050, 260)
 
 [node name="Pickup5" parent="." instance=ExtResource("11_dlmop")]
-position = Vector2(3050, 550)
+position = Vector2(3050, 560)
 
 [node name="Bugs" parent="." instance=ExtResource("12_sda17")]
-position = Vector2(1250, 650)
+position = Vector2(1250, 670)
 
 [node name="Bugs2" parent="." instance=ExtResource("12_sda17")]
-position = Vector2(1550, 550)
+position = Vector2(1550, 570)
 
 [node name="Bugs3" parent="." instance=ExtResource("12_sda17")]
-position = Vector2(1850, 450)
+position = Vector2(1850, 470)
 
 [node name="Bugs4" parent="." instance=ExtResource("12_sda17")]
-position = Vector2(2150, 350)
+position = Vector2(2150, 370)
 
 [node name="Bugs5" parent="." instance=ExtResource("12_sda17")]
-position = Vector2(2450, 250)
+position = Vector2(2450, 270)
 
 [node name="Bugs8" parent="." instance=ExtResource("12_sda17")]
-position = Vector2(2450, 650)
+position = Vector2(2450, 670)
 
 [node name="Bugs10" parent="." instance=ExtResource("12_sda17")]
-position = Vector2(2750, 550)
+position = Vector2(2750, 570)
 
 [node name="Bugs11" parent="." instance=ExtResource("12_sda17")]
-position = Vector2(3050, 650)
+position = Vector2(3050, 670)
 
 [node name="Bugs13" parent="." instance=ExtResource("12_sda17")]
-position = Vector2(4050, 650)
+position = Vector2(4050, 670)
 
 [node name="Bugs14" parent="." instance=ExtResource("12_sda17")]
-position = Vector2(4050, 550)
+position = Vector2(4050, 570)
 
 [node name="Bugs15" parent="." instance=ExtResource("12_sda17")]
-position = Vector2(4050, 450)
+position = Vector2(4050, 470)
 
 [node name="Bugs16" parent="." instance=ExtResource("12_sda17")]
-position = Vector2(4050, 350)
+position = Vector2(4050, 370)
 
 [node name="Bugs17" parent="." instance=ExtResource("12_sda17")]
-position = Vector2(4050, 250)
+position = Vector2(4050, 270)
 
 [node name="Bugs12" parent="." instance=ExtResource("12_sda17")]
-position = Vector2(3050, 350)
+position = Vector2(3050, 370)
 
 [node name="Bugs9" parent="." instance=ExtResource("12_sda17")]
-position = Vector2(1550, 50)
+position = Vector2(1550, 70)
 
 [node name="Bugs6" parent="." instance=ExtResource("12_sda17")]
-position = Vector2(2750, 150)
+position = Vector2(2750, 170)
 
 [node name="Bird" parent="." instance=ExtResource("14_6ioyp")]
-position = Vector2(3050, 70)
+position = Vector2(3050, 90)
+
+[node name="Bird2" parent="." instance=ExtResource("14_6ioyp")]
+position = Vector2(4850, 90)
+
+[node name="Bird19" parent="." instance=ExtResource("14_6ioyp")]
+position = Vector2(4850, -10)
+
+[node name="Bird3" parent="." instance=ExtResource("14_6ioyp")]
+position = Vector2(4850, 190)
+
+[node name="Bird4" parent="." instance=ExtResource("14_6ioyp")]
+position = Vector2(4850, 290)
+
+[node name="Bugs7" parent="." instance=ExtResource("12_sda17")]
+position = Vector2(5650, 270)
+
+[node name="Bugs18" parent="." instance=ExtResource("12_sda17")]
+position = Vector2(5650, 170)
+
+[node name="Bugs19" parent="." instance=ExtResource("12_sda17")]
+position = Vector2(5650, 70)
+
+[node name="Drone" parent="." instance=ExtResource("23_sda17")]
+position = Vector2(6050, 680)
+
+[node name="Drone9" parent="." instance=ExtResource("23_sda17")]
+position = Vector2(5650, 480)
+
+[node name="Drone2" parent="." instance=ExtResource("23_sda17")]
+position = Vector2(6350, 580)
+
+[node name="Drone3" parent="." instance=ExtResource("23_sda17")]
+position = Vector2(6650, 480)
+
+[node name="Drone4" parent="." instance=ExtResource("23_sda17")]
+position = Vector2(6950, 380)
+
+[node name="Drone5" parent="." instance=ExtResource("23_sda17")]
+position = Vector2(7250, 280)
+
+[node name="Drone6" parent="." instance=ExtResource("23_sda17")]
+position = Vector2(7550, 180)
+
+[node name="Drone7" parent="." instance=ExtResource("23_sda17")]
+position = Vector2(7850, 80)
+
+[node name="Pickup2" parent="." instance=ExtResource("11_dlmop")]
+position = Vector2(5650, 660)
+
+[node name="Bugs20" parent="." instance=ExtResource("12_sda17")]
+position = Vector2(8650, 670)
+
+[node name="Bugs21" parent="." instance=ExtResource("12_sda17")]
+position = Vector2(8650, 570)
+
+[node name="Bugs22" parent="." instance=ExtResource("12_sda17")]
+position = Vector2(8650, 470)
+
+[node name="Bugs23" parent="." instance=ExtResource("12_sda17")]
+position = Vector2(8650, 370)
+
+[node name="Bugs24" parent="." instance=ExtResource("12_sda17")]
+position = Vector2(8650, 270)
+
+[node name="Bugs25" parent="." instance=ExtResource("12_sda17")]
+position = Vector2(8650, 170)
+
+[node name="Bird5" parent="." instance=ExtResource("14_6ioyp")]
+position = Vector2(9450, 290)
+
+[node name="Bird9" parent="." instance=ExtResource("14_6ioyp")]
+position = Vector2(9450, 190)
+
+[node name="Bird10" parent="." instance=ExtResource("14_6ioyp")]
+position = Vector2(9450, 90)
+
+[node name="Bird18" parent="." instance=ExtResource("14_6ioyp")]
+position = Vector2(9450, -10)
+
+[node name="Bird6" parent="." instance=ExtResource("14_6ioyp")]
+position = Vector2(9450, 590)
+
+[node name="Bird7" parent="." instance=ExtResource("14_6ioyp")]
+position = Vector2(9450, 490)
+
+[node name="Bird8" parent="." instance=ExtResource("14_6ioyp")]
+position = Vector2(9450, 390)
+
+[node name="Drone8" parent="." instance=ExtResource("23_sda17")]
+position = Vector2(9550, 580)
+
+[node name="Drone12" parent="." instance=ExtResource("23_sda17")]
+position = Vector2(9550, 680)
+
+[node name="Drone13" parent="." instance=ExtResource("23_sda17")]
+position = Vector2(9550, 780)
+
+[node name="Drone10" parent="." instance=ExtResource("23_sda17")]
+position = Vector2(9550, 180)
+
+[node name="Drone11" parent="." instance=ExtResource("23_sda17")]
+position = Vector2(9550, 80)
+
+[node name="Drone14" parent="." instance=ExtResource("23_sda17")]
+position = Vector2(9550, -20)
+
+[node name="Bird11" parent="." instance=ExtResource("14_6ioyp")]
+position = Vector2(6750, 690)
+
+[node name="Bird12" parent="." instance=ExtResource("14_6ioyp")]
+position = Vector2(7050, 590)
+
+[node name="Bird13" parent="." instance=ExtResource("14_6ioyp")]
+position = Vector2(7350, 490)
+
+[node name="Bird14" parent="." instance=ExtResource("14_6ioyp")]
+position = Vector2(7650, 390)
+
+[node name="Bird15" parent="." instance=ExtResource("14_6ioyp")]
+position = Vector2(7950, 290)
+
+[node name="Bird16" parent="." instance=ExtResource("14_6ioyp")]
+position = Vector2(8250, 190)
+
+[node name="Bird17" parent="." instance=ExtResource("14_6ioyp")]
+position = Vector2(8550, 90)
 
 [connection signal="area_entered" from="Coaster/Train/Area2D" to="Coaster/Train" method="_on_area_2d_area_entered"]
 [connection signal="pressed" from="CanvasLayer/BuildUI/StraightButton" to="CanvasLayer/BuildUI" method="_on_straight_button_pressed"]

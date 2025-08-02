@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dn8xs4wp5jdw3"]
+[gd_scene load_steps=4 format=3 uid="uid://dn8xs4wp5jdw3"]
 
 [ext_resource type="Script" uid="uid://8ff1myn8dhcv" path="res://Scripts/track_piece.gd" id="1_jm6t0"]
 [ext_resource type="Texture2D" uid="uid://c8is7y1fams0i" path="res://Sprites/Track Pieces/straight.png" id="2_jm6t0"]
@@ -9,22 +9,10 @@ _data = {
 }
 point_count = 2
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_jm6t0"]
-size = Vector2(100, 10)
-
 [node name="StraightPiece" type="Path2D"]
 curve = SubResource("Curve2D_rdbpf")
 script = ExtResource("1_jm6t0")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(50, 10)
-scale = Vector2(2, 2)
 texture = ExtResource("2_jm6t0")
-
-[node name="Area2D" type="Area2D" parent="."]
-position = Vector2(50, 11)
-collision_layer = 8
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, 4)
-shape = SubResource("RectangleShape2D_jm6t0")

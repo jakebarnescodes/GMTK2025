@@ -1,9 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://b3xoegi678sg1"]
+[gd_scene load_steps=8 format=3 uid="uid://b3xoegi678sg1"]
 
 [ext_resource type="Texture2D" uid="uid://bgritatthwyl3" path="res://Sprites/blueprint_grid.png" id="1_28flt"]
 [ext_resource type="Texture2D" uid="uid://dw1e5ce7gb6s0" path="res://Sprites/logo.png" id="2_48xlc"]
 [ext_resource type="Texture2D" uid="uid://d04c0yuufhdi7" path="res://Sprites/play.png" id="3_1ehe0"]
 [ext_resource type="Script" uid="uid://cawo50okjynqk" path="res://Scripts/play_button.gd" id="4_ce3w2"]
+[ext_resource type="Script" uid="uid://dw6busm34ppyw" path="res://Scripts/volume_slider.gd" id="5_n45e2"]
+[ext_resource type="FontFile" uid="uid://dycujnx8xg131" path="res://Fonts/COMICZ.TTF" id="5_opfnp"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_cp0ys"]
+font = ExtResource("5_opfnp")
+font_size = 24
 
 [node name="MainMenu" type="Node2D"]
 
@@ -28,6 +34,25 @@ pivot_offset = Vector2(125, 125)
 texture_normal = ExtResource("3_1ehe0")
 script = ExtResource("4_ce3w2")
 
+[node name="VolumeLabel" type="Label" parent="."]
+offset_left = 20.0
+offset_top = 630.0
+offset_right = 150.0
+offset_bottom = 664.0
+text = "Volume"
+label_settings = SubResource("LabelSettings_cp0ys")
+
+[node name="VolumeSlider" type="HSlider" parent="."]
+offset_left = 20.0
+offset_top = 670.0
+offset_right = 280.0
+offset_bottom = 686.0
+max_value = 1.0
+step = 0.01
+value = 1.0
+script = ExtResource("5_n45e2")
+
 [connection signal="mouse_entered" from="PlayButton" to="PlayButton" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="PlayButton" to="PlayButton" method="_on_mouse_exited"]
 [connection signal="pressed" from="PlayButton" to="PlayButton" method="_on_pressed"]
+[connection signal="value_changed" from="VolumeSlider" to="VolumeSlider" method="_on_value_changed"]

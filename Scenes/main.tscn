@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://c7ncy1khe82wt"]
+[gd_scene load_steps=4 format=3 uid="uid://c7ncy1khe82wt"]
 
 [ext_resource type="Script" uid="uid://cpyxlvkx88s2v" path="res://Scripts/main.gd" id="1_jjgbg"]
+[ext_resource type="AudioStream" uid="uid://6drnh5ojsob" path="res://Music/8bit Stage4.wav" id="2_8gbba"]
 [ext_resource type="Script" uid="uid://dg77egfn2vbdd" path="res://Scripts/sfx_player.gd" id="2_bo1nx"]
 
 [node name="Main" type="Node"]
@@ -9,10 +10,17 @@ script = ExtResource("1_jjgbg")
 [node name="RespawnTimer" type="Timer" parent="."]
 wait_time = 2.0
 
+[node name="ReturnTimer" type="Timer" parent="."]
+wait_time = 3.0
+
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_8gbba")
+volume_db = -10.0
+autoplay = true
 
 [node name="SFXPlayer" type="AudioStreamPlayer" parent="."]
 volume_db = -10.0
 script = ExtResource("2_bo1nx")
 
 [connection signal="timeout" from="RespawnTimer" to="." method="_on_respawn_timer_timeout"]
+[connection signal="timeout" from="ReturnTimer" to="." method="_on_return_timer_timeout"]

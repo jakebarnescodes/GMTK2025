@@ -16,6 +16,8 @@ func build(piece_path : String):
 	add_child(piece_node)
 	append_piece(piece_node)
 	$Sprite2D.modulate.r -= 0.05
+	$BuildPlayer.pitch_scale = randf_range(0.8,1.0)
+	$BuildPlayer.play()
 
 func append_piece(piece_path : TrackPiece):
 	var piece_curve : Curve2D = piece_path.curve
